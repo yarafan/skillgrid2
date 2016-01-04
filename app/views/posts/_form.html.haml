@@ -1,0 +1,19 @@
+.posts-form
+  = form_for(@post) do |f|
+    - if @post.errors.any?
+      #error_explanation
+        %h2 "#{pluralize(@post.errors.count, 'error')}  prohibited this post from being saved:"
+        %ul
+          - @post.errors.full_messages.each do |message|
+            %li= message
+    .form-group
+      = f.label :problem
+      = f.text_area :problem, class: 'form-control'
+    .form-group
+      = f.label :code
+      = f.text_area :code, class: 'form-control'
+    .form-group
+      = f.label :review_questions
+      = f.text_area :review_questions, class: 'form-control', placeholder: '1. Чем это решение хорошо? 2. Чем это решение плохо?'
+    .actions
+      = f.submit class: 'btn btn-default'

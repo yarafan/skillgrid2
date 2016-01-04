@@ -15,3 +15,6 @@
 /log/*
 !/log/.keep
 /tmp
+.eslintrc
+.haml-lint.yml
+.rubocop.yml

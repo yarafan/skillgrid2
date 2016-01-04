@@ -1,0 +1,15 @@
+%p#notice= notice
+%h1 Listing Posts
+.posts
+  %table.table
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td
+            = link_to post.problem, post_path(post)
+          %td
+            = link_to 'Edit', edit_post_path(post)
+            %br
+            = link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+            %br
+= link_to 'New Post', new_post_path
