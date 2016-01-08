@@ -1,5 +1,20 @@
 %p#notice= notice
 .question= @post.problem
-.code= raw @post.code
+.code
+  = raw get_gist(@post.code)
 .review_questions= @post.review_questions
+%h2 Posts to be reviewed
+.recomended-reviews
+  - @unreviewed_posts.each do |upost|
+    = link_to upost.problem, post_path(upost)
+    %br
+%h2 Reviews
+.reviews
+  - @reviews.each do |review|
+    = review.text
+    = link_to 'edit review', edit_post_review_path(@post, review)
+    = link_to 'Delete Review', post_review_path(@post, review), method: :delete
+    %br
+= link_to 'Add Review', new_post_review_path(@post)
+%br
 = link_to 'Back', posts_path
