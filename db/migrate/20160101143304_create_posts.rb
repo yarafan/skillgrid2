@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :problem
       t.text :code
       t.text :review_questions
+      t.boolean :reviewed, null: false, default: false
 
       t.timestamps null: false
     end
