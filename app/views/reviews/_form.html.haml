@@ -1,0 +1,12 @@
+= form_for([@post, @review]) do |f|
+  - if @review.errors.any?
+    #error_explanation
+      %h2 "#{pluralize(@review.errors.count, 'error')} prohibited this review from being saved:"
+      %ul
+        - @review.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :text
+    = f.text_area :text, class: 'form-control', size: '15x15'
+  .actions
+    = f.submit class: 'btn btn-default'
