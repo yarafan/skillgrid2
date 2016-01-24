@@ -17,11 +17,12 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    user = current_user
     post = Post.find(params[:post_id])
-    @review = post.reviews.create(review_params)
+    @review = user.reviews.create(review_params)
+    post.reviews << @review
     if @review.save
-      post.reviewed = true
-      post.save!
+      post.update_column(:reviewed, true)
       redirect_to post_path(post), notice: 'Review was successfully created.'
     else
       render :new

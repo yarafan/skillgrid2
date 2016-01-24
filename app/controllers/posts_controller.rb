@@ -2,12 +2,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.unscope(:order).where(to_be_approved: false).order('id DESC')
   end
 
   def show
     @reviews = Review.where(post_id: @post.id)
-    @unreviewed_posts = Post.where(reviewed: false).where.not(id: @post.id).limit(3)
+    @unreviewed_posts = Post.where(reviewed: false).where.not(id: @post.id, user_id: current_user.id).limit(3)
   end
 
   def new
@@ -18,7 +18,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    user = current_user
+    @post = user.posts.build(post_params)
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else

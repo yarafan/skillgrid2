@@ -5,18 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.delete_all
 Post.delete_all
 Review.delete_all
-p = Post.create!(problem: 'Как вывести Hello world',
+User.create(email: 'test')
+u = User.create(email: 'test2')
+
+Post.create!(problem: 'Как вывести Hello world',
                  code: 'https://gist.github.com/yarafan/fb03b1921e34b342432e.js',
                  reviewed: true,
+                 to_be_approved: false,
+                 user_id: u.id,
                  review_questions: 'Как лучше поступить?')
-Post.create!(problem: 'Как вывести Hello world2',
-             code: 'https://gist.github.com/yarafan/fb03b1921e34b342432e.js',
-             reviewed: false,
-             review_questions: 'Как лучше поступить3?')
-Post.create!(problem: 'Как вывести Hello world3',
-             code: 'https://gist.github.com/yarafan/fb03b1921e34b342432e.js',
-             reviewed: false,
-             review_questions: 'Как лучше поступить3?')
-Review.create(text: 'Используй print', post_id: p.id)
